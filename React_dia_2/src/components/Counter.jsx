@@ -1,16 +1,42 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-const Counter = () => {
-  const [count, setCount] = useState(0)
+const Counter = ({ initialCountProp }) => {
+  const [count, setCount] = useState(initialCountProp);
+  const [initialCount, setInitialCount] = useState(initialCountProp);
+  const [mult, setMult] = useState(1);
+
+  const increment = () => {
+    setCount(count + mult);
+  };
+
+  const decrement = () => {
+    setCount(count - mult);
+  };
+
+  const handleInitialCount = (e) => {
+    setInitialCount(parseInt(e.target.value))
+    setCount(parseInt(e.target.value))
+  };
+
+  const handleMult = (e) => {
+    setMult(parseInt(e.target.value))
+  };
 
   return (
     <div>
-      <button onClick={() => setCount((count) => count + 1)}>+</button>
-      <button onClick={() => setCount((count) => count - 1)}>-</button>
-      <h2>Contador: {count}</h2>
-
+      <label>
+        Initial Count: 
+        <input type="number" value={initialCount} onChange={handleInitialCount} />
+      </label>
+      <label><br />
+        Multiplicator: 
+        <input type="number" value={mult} onChange={handleMult} />
+      </label><br />
+      <button onClick={decrement}>-</button>
+      <button onClick={increment}>+</button>
+      <h2>{count}</h2>
     </div>
-  )
-}
+  );
+};
 
-export default Counter
+export default Counter;
